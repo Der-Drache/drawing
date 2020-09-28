@@ -1,5 +1,6 @@
 /**
  * @param {Number[]} path
+ * @returns {{ x: Number, y: Number }[]}
  */
 export const unflattenPath = path => {
   const newPath = [];

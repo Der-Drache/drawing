@@ -57,8 +57,17 @@ export class Zoomer {
    * @type {Number}
    */
   superZoomFactor = 4;
+  /**
+   * @type {Number}
+   */
   offsetX = 0;
+  /**
+   * @type {Number}
+   */
   offsetY = 0;
+  /**
+   * @type {Number}
+   */
   offsetK = 0;
 
   /**
@@ -115,12 +124,9 @@ export class Zoomer {
    * @private
    */
   scaleUpZooming = (currentValue, previousValue, offset) => {
-    //currentValue += offset;
-    //previousValue += offset;
     const delta = currentValue - previousValue;
     const k = previousValue + this.zoomFactor * delta;
     return +k.toFixed(2);
-    //return +currentValue.toFixed(2)
   }
 
   /**
@@ -170,33 +176,10 @@ export class Zoomer {
       .scaleExtent(this.scaleExtent)
       .on('zoom', (event) => {
         if (event.sourceEvent) {
-          // increase scaling and re-calculate the translate accordingly
-          /*const prevK = event.transform.k = event.transform.k || 1;
-          const prevX = event.transform.x = event.transform.x || 0;
-          const prevY = event.transform.y = event.transform.y || 0;*/
           const { k, x, y } = event.transform;
           event.transform.k = this.scaleUpZooming(k, this.oldK, this.offsetK);
           event.transform.x = this.scaleUpZooming(x, this.oldX, this.offsetX);
           event.transform.y = this.scaleUpZooming(y, this.oldY, this.offsetY);
-
-          /*console.log('k', {
-            k,
-            //prevK,
-            //oldK: this.oldK,
-            offsetK: this.offsetK,
-          })
-          console.log('x', {
-            x,
-            //prevX,
-            //oldX: this.oldX,
-            offsetX: this.offsetX,
-          })
-          console.log('y', {
-            y,
-            //prevY,
-            //oldY: this.oldY,
-            offsetY: this.offsetY,
-          })*/
 
           this.handleZoom(event);
 
@@ -204,7 +187,6 @@ export class Zoomer {
           this.oldX = event.transform.x;
           this.oldY = event.transform.y;
 
-          //this.offsetK = this.offsetX = this.offsetY = 0;
           throttler(event);
         }
       })
@@ -238,10 +220,6 @@ export class Zoomer {
   updateTransform = transform => {
     this.transform(transform);
     this.handleZoom({ transform });
-    // find a fix to avoid relaoding the window
-    // bug: when doing a manual update, the transform is set correctly but gets back to its previous
-    // state when a move or zoom event is triggered by the user
-    //window.location.reload();
   }
 
   /**
@@ -251,15 +229,6 @@ export class Zoomer {
     this.keyHandler
       .when(['Control', 'Shift', 'Z'])
       .then(() => {
-        /*this.offsetX = this.oldX * -1;
-        this.offsetY = this.oldY * -1;
-        this.offsetK = this.oldK * -1;
-        console.log(this.offsetX)
-        console.log(this.offsetY)
-        console.log(this.offsetK)*/
-        //this.oldK *= -1;
-        //this.oldX *= -1;
-        //this.oldY *= -1;
         this.updateTransform({ k: 1, x: 0, y: 0 })
       })
   }

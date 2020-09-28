@@ -2,15 +2,20 @@ import { PathUtils } from '.';
 import * as commands from './commands';
 import { match, last, lastTwo } from '../../utils';
 
+/**
+ * @typedef {import('@svgdotjs/svg.js').PathArrayAlias} PathArrayAlias
+ */
+
 export class PathCreator {
 
   static tempRelativeString = 'd';
   static relativeString = 'relative';
   static absoluteString = 'absolute';
   /**
-   * @type {(String | Number)[][]}
+   * @type {PathArrayAlias}
+   * @private
    */
-  path = [];
+  _path = [];
   /**
    * @private
    */
@@ -21,10 +26,10 @@ export class PathCreator {
   rel = false;
 
   /**
-   * @param {((Number | String)[] | String)[]} [path]
+   * @param {PathArrayAlias} [path]
    */
   constructor(path) {
-    if (path) {
+    if (Array.isArray(path)) {
       path.forEach(nPath => {
         if (typeof nPath === 'string') {
           if (nPath === PathCreator.relativeString) {
@@ -52,6 +57,17 @@ export class PathCreator {
   get d() {
     this.drelative = true;
     return this;
+  }
+
+  /**
+   * @returns {PathArrayAlias}
+   */
+  get path() {
+    if (this._path.length) {
+      return this._path;
+    }
+
+    throw new Error('Cannot use an empty path');
   }
 
   /**
@@ -92,7 +108,7 @@ export class PathCreator {
       return this.drawer([drawers[1]], args);
     }
 
-    this.path.push(drawers[0](...args));
+    this._path.push(drawers[0](...args));
     return this;
   }
 
@@ -328,8 +344,8 @@ export class PathCreator {
    * @private
    */
   baseSplineThrough = (drawers, points = []) => {
-    if (this.path.length) {
-      points.unshift(...lastTwo(last(this.path)))
+    if (this._path.length) {
+      points.unshift(...lastTwo(last(this._path)))
     }
 
     if (drawers[1] && this.isRelative()) {
@@ -337,7 +353,7 @@ export class PathCreator {
       return this.drawer([drawers[1]], points);
     }
 
-    this.path.push(...drawers[0](...points));
+    this._path.push(...drawers[0](...points));
     // since the spline through functions
     return this;
   }
@@ -374,7 +390,9 @@ export class PathCreator {
 
     if (!drawer) {
       drawer = match(args.length)
-        .case(0, () => () => { })
+        .case(0, () => () => {
+          console.warn(new Error('PathCreate.curve has been called without argument'));
+        })
         .case(2, () => match(args[0])
           .case('x', () => this.hline)
           .case('y', () => this.vline)
@@ -444,7 +462,7 @@ export class PathCreator {
    * @returns {this}
    */
   removeUselessMoves = () => {
-    this.path = PathUtils.removeUselessMoves(this.path);
+    this._path = PathUtils.removeUselessMoves(this._path);
     return this;
   }
 }

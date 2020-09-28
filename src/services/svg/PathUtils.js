@@ -31,14 +31,14 @@ export class PathUtils {
   };
 
   static nonStrictCommands = {
-    ARC: [PathUtils.commands.ARC, PathUtils.commands.ARCD],
-    CLOSE: [PathUtils.commands.CLOSE, PathUtils.commands.CLOSED],
-    CUBIC_BEZIER: [PathUtils.commands.CUBIC_BEZIER, PathUtils.commands.CUBIC_BEZIERD],
-    SMOOTH_CUBIC_BEZIER: [PathUtils.commands.SMOOTH_CUBIC_BEZIER, PathUtils.commands.SMOOTH_CUBIC_BEZIERD],
-    LINE: [PathUtils.commands.LINE, PathUtils.commands.LINED],
-    VLINE: [PathUtils.commands.VLINE, PathUtils.commands.VLINED],
-    HLINE: [PathUtils.commands.HLINE, PathUtils.commands.HLINED],
-    MOVE: [PathUtils.commands.MOVE, PathUtils.commands.MOVED],
+    ARC: [PathUtils.commands.ARC, PathUtils.commands.DARC],
+    CLOSE: [PathUtils.commands.CLOSE, PathUtils.commands.DCLOSE],
+    CUBIC_BEZIER: [PathUtils.commands.CUBIC_BEZIER, PathUtils.commands.DCUBIC_BEZIER],
+    SMOOTH_CUBIC_BEZIER: [PathUtils.commands.SMOOTH_CUBIC_BEZIER, PathUtils.commands.DSMOOTH_CUBIC_BEZIER],
+    LINE: [PathUtils.commands.LINE, PathUtils.commands.DLINE],
+    VLINE: [PathUtils.commands.VLINE, PathUtils.commands.DVLINE],
+    HLINE: [PathUtils.commands.HLINE, PathUtils.commands.DHLINE],
+    MOVE: [PathUtils.commands.MOVE, PathUtils.commands.DMOVE],
     QUADRATIC_BEZIER: [PathUtils.commands.QUADRATIC_BEZIER, PathUtils.commands.DQUADRATIC_BEZIER],
     SMOOTH_QUADRATIC_BEZIER: [PathUtils.commands.SMOOTH_QUADRATIC_BEZIER, PathUtils.commands.DSMOOTH_QUADRATIC_BEZIER],
   };

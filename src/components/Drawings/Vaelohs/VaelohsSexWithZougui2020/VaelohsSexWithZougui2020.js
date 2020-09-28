@@ -5,6 +5,7 @@ import { vaelohs } from './vaelohs';
 import { zougui } from './zougui';
 import { Svg } from '../../../common';
 import { createSvgRoot, orderPaths } from '../../../../services';
+import { PathCreator } from './../../../../services/svg/PathCreator';
 
 export const VaelohsSexWithZougui2020 = () => {
 
