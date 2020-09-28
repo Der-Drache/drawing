@@ -66,16 +66,8 @@ class Svg extends React.Component {
   transformSvgRoot = e => {
     const { x, y, k } = e.transform;
 
-    //svgRoot().attr('transform', `translateX(${x}) translateY(${y}) scale(${k})`);
-    //svgRoot().translate(x, y).scale(k);
-    /*svgRoot().transform({
-      translate: [x, y],
-      scale: k,
-    });*/
-    //svgRoot().attr('style', `transform: translateX(${x}px) translateY(${y}px) scale(${k})`);
     const rootSvg = document.getElementById('svg-root');
-    rootSvg.setAttribute('transform', `translate(${x} ${y}) scale(${k})`)
-    //rootSvg.transform = `translate(${x} ${y}) scale(${k})`;
+    rootSvg.setAttribute('transform', `translate(${x} ${y}) scale(${k})`);
   }
 
   render() {
