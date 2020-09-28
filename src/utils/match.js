@@ -1,4 +1,3 @@
-// Créer le type pour la fonction `case` de `MatchReturn`
 /**
  * add a new case to match
  * @callback Case
@@ -7,7 +6,7 @@
  * @returns {MatchReturn}
  */
 
-// Créer le type pour la fonction `default` de `MatchReturn`
+
 /**
  * add a default case and execute the match, returning the value returned by the matching case
  * @callback Default
@@ -15,14 +14,12 @@
  * @returns {*}
  */
 
-// Créer le type pour la fonction `exec` de `MatchReturn`
 /**
  * execute the match and return the value returned by the matching case
  * @callback Exec
  * @returns {*}
  */
 
-// Créer le type pour l'objet retourner par `match`
 /**
  * @typedef {Object} MatchReturn
  * @property {Case} case
